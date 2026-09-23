@@ -1,0 +1,96 @@
+.about-story {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 64em) {
+  .about-story {
+    grid-template-columns: 5fr 7fr;
+    gap: 5rem;
+    align-items: start;
+  }
+}
+
+/* Principles */
+.principles {
+  display: grid;
+  gap: 2.5rem;
+  margin: clamp(2.5rem, 2rem + 2.5vw, 4rem) 0 0;
+}
+
+.principle {
+  display: grid;
+  gap: 0.875rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-strong);
+}
+
+.principle__number {
+  color: var(--bronze-deep);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+}
+
+@media (min-width: 48em) {
+  .principles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+
+/* Clients */
+.about-clients {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.client-list {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.client-list li {
+  display: grid;
+  gap: 0.25rem;
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.client-list h3 {
+  font-size: var(--fs-h4);
+}
+
+.client-list p {
+  color: var(--muted);
+  font-size: var(--fs-base);
+}
+
+@media (min-width: 48em) {
+  .client-list li {
+    grid-template-columns: 14rem 1fr;
+    align-items: baseline;
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 64em) {
+  .about-clients {
+    grid-template-columns: 5fr 7fr;
+    gap: 5rem;
+    align-items: start;
+  }
+}
+
+/* Placeholders */
+.about-placeholders {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+}
+
+@media (min-width: 48em) {
+  .about-placeholders {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

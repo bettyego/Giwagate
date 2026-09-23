@@ -1,0 +1,35 @@
+.page-hero {
+  padding-top: clamp(3rem, 2rem + 5vw, 6.5rem);
+}
+
+.page-hero__text {
+  display: grid;
+  gap: 1.5rem;
+  padding-bottom: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+}
+
+.page-hero h1 {
+  max-width: 16ch;
+}
+
+.page-hero__lead {
+  max-width: 36rem;
+}
+
+.page-hero__media .photo {
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 48em) {
+  .page-hero__media .photo {
+    aspect-ratio: 21 / 9;
+  }
+}
+
+@media (min-width: 64em) {
+  .page-hero__text {
+    grid-template-columns: 1.3fr 1fr;
+    align-items: end;
+    gap: 4rem;
+  }
+}

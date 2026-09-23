@@ -1,0 +1,20 @@
+.not-found {
+  display: grid;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.not-found h1 {
+  font-size: var(--fs-h2);
+}
+
+.not-found .lead {
+  margin-top: 1.25rem;
+}
+
+.not-found__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+}

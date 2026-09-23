@@ -1,0 +1,54 @@
+.inquiry-form__grid {
+  display: grid;
+  gap: 1.375rem 1.25rem;
+}
+
+.inquiry-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 1.75rem;
+}
+
+.inquiry-form__status:empty {
+  display: none;
+}
+
+.inquiry-form__message {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-left: 2px solid var(--bronze);
+  background: var(--ivory);
+  color: var(--ink);
+  font-size: var(--fs-sm);
+}
+
+.inquiry-form__message.is-success {
+  border-left-color: var(--success);
+}
+
+.inquiry-form__message.is-error {
+  border-left-color: var(--danger);
+}
+
+@media (max-width: 39.99em) {
+  .inquiry-form__actions .btn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 40em) {
+  .inquiry-form__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inquiry-form__full {
+    grid-column: 1 / -1;
+  }
+
+  /* Narrow containers (e.g. a sidebar) keep a single column. */
+  .inquiry-form--stacked .inquiry-form__grid {
+    grid-template-columns: 1fr;
+  }
+}

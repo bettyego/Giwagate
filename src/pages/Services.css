@@ -1,0 +1,79 @@
+.service-index ul {
+  display: grid;
+  margin: 1.75rem 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.service-index a {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.service-index a::after {
+  content: '↓';
+  color: var(--bronze);
+}
+
+.service-index a:hover {
+  color: var(--bronze-deep);
+}
+
+.service-detail__grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.service-detail__media .photo {
+  aspect-ratio: 4 / 3;
+}
+
+.service-detail__copy {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+  max-width: 36rem;
+}
+
+.service-detail__copy .eyebrow {
+  margin-bottom: 0;
+}
+
+.service-detail__copy .lead {
+  color: var(--ink);
+}
+
+.service-detail__label {
+  margin-top: 0.75rem;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.service-detail .checklist {
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 64em) {
+  .service-detail__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+  }
+
+  .service-detail__media .photo {
+    aspect-ratio: 5 / 6;
+  }
+
+  .service-detail--reverse .service-detail__media {
+    order: 2;
+  }
+}

@@ -1,0 +1,55 @@
+:root {
+  /* Colour — ink, warm paper and a single bronze accent */
+  --ink: #161b22;
+  --ink-2: #1e252e;
+  --ink-soft: #39414c;
+  --muted: #5c636e;
+  --paper: #fbf8f2;
+  --ivory: #f3ede2;
+  --stone: #e7e0d3;
+  --line: #ddd4c4;
+  --line-strong: #c3b7a1;
+  --bronze: #9c7443;
+  --bronze-deep: #7a5a31;
+  --bronze-light: #c9a778;
+  --on-dark: #f3ede2;
+  --on-dark-muted: #aca598;
+  --line-on-dark: rgb(243 237 226 / 0.16);
+  --danger: #a3372b;
+  --success: #3d6a4c;
+
+  /* Type */
+  --font-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --fs-h4: clamp(1.375rem, 1.3rem + 0.3vw, 1.5rem);
+  --fs-h3: clamp(1.625rem, 1.4rem + 0.8vw, 2rem);
+  --fs-h2: clamp(2.125rem, 1.6rem + 2.2vw, 3.5rem);
+  --fs-h1: clamp(2.625rem, 1.8rem + 3.6vw, 4.75rem);
+  --fs-display: clamp(2.875rem, 1.8rem + 5.2vw, 6.25rem);
+
+  /* Layout */
+  --container: 80rem;
+  --container-narrow: 46rem;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --section: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+  --header-h: 4.5rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-emph: cubic-bezier(0.16, 0.84, 0.3, 1);
+  --dur-fast: 180ms;
+  --dur: 320ms;
+  --dur-slow: 900ms;
+}
+
+@media (min-width: 64em) {
+  :root {
+    --header-h: 5.5rem;
+  }
+}
