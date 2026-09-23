@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { purposeLabels, propertyFacts } from '../content/properties.js'
+import { purposeLabels, propertyFacts, hasVideo } from '../content/properties.js'
 import Photo from './Photo.jsx'
 import './PropertyCard.css'
 
@@ -11,6 +11,9 @@ export default function PropertyCard({ property, headingLevel: Heading = 'h3' })
       <div className="property-card__media">
         <Photo image={cover} sizes="(min-width: 64em) 33vw, (min-width: 40em) 50vw, 100vw" showNote={false} />
         <span className="property-card__purpose">{purposeLabels[property.purpose]}</span>
+        <span className="property-card__media-count">
+          {property.images.length} photos{hasVideo(property) && ' · Video'}
+        </span>
       </div>
       <div className="property-card__body">
         <p className="property-card__area">{property.area}, Abuja</p>

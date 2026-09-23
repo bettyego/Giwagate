@@ -15,8 +15,8 @@ export default function Services() {
     <>
       <PageHero
         eyebrow="Services"
-        title="Everything a property needs, from search to upkeep."
-        lead="Most clients come to us for one thing — a home to buy, a tenant, someone to manage a building — and stay because it’s simpler to have one team handle the rest."
+        title="Everything a property needs."
+        lead="Buying, renting, letting and management — one team for all of it."
       >
         <nav aria-label="Services on this page" className="service-index">
           <ul role="list">
@@ -46,7 +46,6 @@ export default function Services() {
               </p>
               <h2 id={`${service.id}-title`}>{service.title}</h2>
               <p className="lead">{service.summary}</p>
-              <p>{service.body}</p>
               <h3 className="service-detail__label">What’s included</h3>
               <ul role="list" className="checklist">
                 {service.includes.map((item) => (
@@ -61,7 +60,7 @@ export default function Services() {
         </section>
       ))}
 
-      <CtaBand title="Not sure which service you need?" text="Describe your situation and we’ll tell you honestly how we can help — or point you to someone better placed if we can’t." />
+      <CtaBand title="Not sure which service you need?" text="Tell us your situation and we’ll point you the right way." />
     </>
   )
 }

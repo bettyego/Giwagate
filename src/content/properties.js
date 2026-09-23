@@ -1,4 +1,5 @@
 import { images } from './images.js'
+import { folderPhotos, folderVideo } from './media.js'
 
 /**
  * Property listings.
@@ -9,15 +10,20 @@ import { images } from './images.js'
  * `sample: false` (or remove the flag).
  *
  * Fields
- *   slug        URL-safe identifier, unique
+ *   slug        URL-safe identifier, unique. Also the name of the listing's
+ *               media folder in src/assets/properties/
  *   purpose     'sale' | 'rent'
  *   type        'House' | 'Apartment' | 'Terrace' | 'Commercial' | 'Land'
  *   area        Abuja district
  *   price       Display string, or null to show "Price on request"
  *   bedrooms / bathrooms   numbers, or null where not applicable
- *   images      first image is used on cards
+ *   summary     one short sentence — let the photos do the talking
+ *   images      stock placeholders; replaced automatically by any photos in
+ *               the listing's media folder (see media.js)
+ *   video       optional YouTube link for a video tour. A video file in the
+ *               listing's media folder is used when this is empty.
  */
-export const properties = [
+const listings = [
   {
     slug: 'sample-detached-house-maitama',
     title: 'Five-bedroom detached house',
@@ -27,10 +33,10 @@ export const properties = [
     price: null,
     bedrooms: 5,
     bathrooms: 6,
-    summary:
-      'A detached family house on a quiet street, with generous living spaces, a staff quarters and parking for several cars.',
+    summary: 'Detached family home on a quiet street, with staff quarters and generous parking.',
     features: ['Boys’ quarters', 'Swimming pool', 'Fitted kitchen', 'Parking for four cars', 'Backup power'],
-    images: [images.villaTerrace, images.livingWarm, images.openPlanStair],
+    images: [images.villaTerrace, images.livingWarm, images.openPlanStair, images.whiteVilla, images.livingModern],
+    video: null,
     sample: true,
   },
   {
@@ -42,10 +48,10 @@ export const properties = [
     price: null,
     bedrooms: 4,
     bathrooms: 5,
-    summary:
-      'A newly finished terrace duplex in a gated development, with an open-plan ground floor and hillside views from the upper rooms.',
+    summary: 'New terrace duplex in a gated estate, with hillside views from the upper floor.',
     features: ['Gated estate', 'En-suite bedrooms', 'Private balcony', 'Estate security', 'Allocated parking'],
-    images: [images.timberFacade, images.livingModern, images.openPlanStair],
+    images: [images.timberFacade, images.livingModern, images.openPlanStair, images.courtyardHouse, images.livingWarm],
+    video: null,
     sample: true,
   },
   {
@@ -57,10 +63,10 @@ export const properties = [
     price: null,
     bedrooms: 3,
     bathrooms: 3,
-    summary:
-      'A serviced apartment within walking distance of shops and restaurants, suited to professionals and small families.',
+    summary: 'Serviced apartment close to shops and restaurants.',
     features: ['Serviced building', 'Lift access', '24-hour power', 'Gym', 'Secure parking'],
-    images: [images.livingModern, images.livingWarm, images.openPlanStair],
+    images: [images.livingModern, images.livingWarm, images.openPlanStair, images.cityTowers],
+    video: null,
     sample: true,
   },
   {
@@ -72,10 +78,17 @@ export const properties = [
     price: null,
     bedrooms: 6,
     bathrooms: 7,
-    summary:
-      'A substantial villa on a large plot with formal and family living areas, landscaped gardens and a pool terrace.',
+    summary: 'Villa on a large plot with landscaped gardens and a pool terrace.',
     features: ['Large plot', 'Swimming pool', 'Cinema room', 'Boys’ quarters', 'Gatehouse'],
-    images: [images.poolHouse, images.livingWarm, images.livingModern],
+    images: [
+      images.poolHouse,
+      images.livingWarm,
+      images.livingModern,
+      images.whiteVilla,
+      images.openPlanStair,
+      images.villaTerrace,
+    ],
+    video: null,
     sample: true,
   },
   {
@@ -87,10 +100,10 @@ export const properties = [
     price: null,
     bedrooms: 4,
     bathrooms: 4,
-    summary:
-      'A semi-detached house with a private courtyard, a study and a separate guest room on the ground floor.',
+    summary: 'Semi-detached house with a private courtyard, study and guest room.',
     features: ['Private courtyard', 'Study', 'Guest room', 'Fitted wardrobes', 'Water treatment'],
-    images: [images.courtyardHouse, images.openPlanStair, images.livingModern],
+    images: [images.courtyardHouse, images.openPlanStair, images.livingModern, images.livingWarm],
+    video: null,
     sample: true,
   },
   {
@@ -102,18 +115,32 @@ export const properties = [
     price: null,
     bedrooms: null,
     bathrooms: null,
-    summary:
-      'A full office floor in a managed building, fitted out with meeting rooms, a kitchenette and shared reception.',
+    summary: 'Full office floor in a managed building, with meeting rooms and reception.',
     features: ['Managed building', 'Meeting rooms', 'Central air conditioning', 'Backup power', 'Basement parking'],
     images: [images.officeInterior, images.cityTowers, images.livingModern],
+    video: null,
     sample: true,
   },
 ]
+
+// Real photos and videos in a listing's media folder take over from the placeholders.
+export const properties = listings.map((listing) => {
+  const photos = folderPhotos(listing.slug, listing.title)
+  return {
+    ...listing,
+    images: photos.length ? photos : listing.images,
+    videoFile: folderVideo(listing.slug),
+  }
+})
 
 export const purposeLabels = { sale: 'For sale', rent: 'To let' }
 
 export function getProperty(slug) {
   return properties.find((p) => p.slug === slug)
+}
+
+export function hasVideo(property) {
+  return Boolean(property.video || property.videoFile)
 }
 
 export function propertyFacts(property) {

@@ -44,8 +44,8 @@ export default function Contact() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Talk to us about property in Abuja."
-        lead="Tell us a little about what you need. The more detail you share — area, budget, timing — the more useful our first reply will be."
+        title="Talk to us."
+        lead="Share your area, budget and timing, and we’ll get back to you."
       />
 
       <section className="section contact" aria-label="Contact details and enquiry form">

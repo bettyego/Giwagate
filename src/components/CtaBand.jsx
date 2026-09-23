@@ -7,7 +7,7 @@ import './CtaBand.css'
 
 export default function CtaBand({
   title = 'Tell us what you’re looking for.',
-  text = 'Whether you’re buying, renting, letting or need someone to look after a property, a short conversation is the best place to start.',
+  text = 'Buying, renting, letting or managing — a short conversation is the best start.',
 }) {
   const { contact } = site
 

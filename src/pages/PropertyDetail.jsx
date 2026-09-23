@@ -1,10 +1,13 @@
+import { useState } from 'react'
 import { Link, useParams } from 'react-router'
-import { getProperty, purposeLabels, properties } from '../content/properties.js'
+import { getProperty, purposeLabels, properties, hasVideo } from '../content/properties.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import Photo from '../components/Photo.jsx'
 import Reveal from '../components/Reveal.jsx'
 import PropertyCard from '../components/PropertyCard.jsx'
 import InquiryForm from '../components/InquiryForm.jsx'
+import Lightbox from '../components/Lightbox.jsx'
+import VideoTour from '../components/VideoTour.jsx'
 import Arrow from '../components/Arrow.jsx'
 import NotFound from './NotFound.jsx'
 import './PropertyDetail.css'
@@ -12,6 +15,7 @@ import './PropertyDetail.css'
 export default function PropertyDetail() {
   const { slug } = useParams()
   const property = getProperty(slug)
+  const [viewing, setViewing] = useState(null)
   usePageTitle(property ? `${property.title}, ${property.area}` : 'Property not found')
 
   if (!property) {
@@ -24,7 +28,10 @@ export default function PropertyDetail() {
     )
   }
 
-  const [cover, ...rest] = property.images
+  const photos = property.images
+  // The grid shows up to five photos; the last tile notes how many more there are.
+  const tiles = photos.slice(0, 5)
+  const hidden = photos.length - tiles.length
   // Similar listings first: same purpose (buy/rent), then same area.
   const relevance = (p) => (p.purpose === property.purpose ? 2 : 0) + (p.area === property.area ? 1 : 0)
   const others = properties
@@ -56,8 +63,7 @@ export default function PropertyDetail() {
           {property.sample && (
             <p className="notice property-detail__notice">
               <span>
-                <strong>Sample listing.</strong> This page demonstrates how a Giwagate listing will look. It is not a
-                real property and is not available to buy or rent.
+                <strong>Sample listing.</strong> Not a real property.
               </span>
             </p>
           )}
@@ -75,15 +81,42 @@ export default function PropertyDetail() {
             </Reveal>
           </header>
 
-          <div className="gallery">
-            <Photo image={cover} className="gallery__main" priority sizes="(min-width: 64em) 66vw, 100vw" />
-            {rest.map((image, index) => (
-              <Photo key={index} image={image} className="gallery__thumb" sizes="(min-width: 64em) 33vw, 50vw" />
+          <div className={`gallery gallery--${tiles.length}`}>
+            {tiles.map((image, index) => (
+              <div key={index} className={index === 0 ? 'gallery__main' : 'gallery__thumb'}>
+                <Photo
+                  image={image}
+                  priority={index === 0}
+                  reveal={index !== 0}
+                  sizes={index === 0 ? '(min-width: 64em) 50vw, 100vw' : '(min-width: 64em) 25vw, 50vw'}
+                />
+                <button type="button" className="gallery__open" onClick={() => setViewing(index)}>
+                  {index === tiles.length - 1 && hidden > 0 ? (
+                    <span className="gallery__more">+{hidden} more</span>
+                  ) : (
+                    <span className="sr-only">Open photo {index + 1} of {photos.length}</span>
+                  )}
+                </button>
+              </div>
             ))}
+            <button type="button" className="gallery__all" onClick={() => setViewing(0)}>
+              View all {photos.length} photos
+            </button>
           </div>
+
+          <Lightbox images={photos} index={viewing} onChange={setViewing} onClose={() => setViewing(null)} title={property.title} />
 
           <div className="property-detail__body">
             <div className="property-detail__main">
+              {hasVideo(property) && (
+                <Reveal as="section" aria-labelledby="video-title">
+                  <h2 id="video-title" className="property-detail__heading">
+                    Video tour
+                  </h2>
+                  <VideoTour property={property} />
+                </Reveal>
+              )}
+
               <Reveal as="section" aria-labelledby="overview-title">
                 <h2 id="overview-title" className="property-detail__heading">
                   Overview
@@ -120,7 +153,7 @@ export default function PropertyDetail() {
             <aside className="property-detail__aside" aria-labelledby="enquire-title">
               <div className="enquiry-panel">
                 <h2 id="enquire-title">Enquire about this property</h2>
-                <p className="muted">Ask a question or request a viewing, and we’ll get back to you.</p>
+                <p className="muted">Ask a question or book a viewing.</p>
                 <div className="inquiry-form--stacked">
                   <InquiryForm
                     key={property.slug}

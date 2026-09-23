@@ -9,25 +9,25 @@ import './About.css'
 const principles = [
   {
     title: 'Honest advice',
-    text: 'We tell clients what we would want to be told — about price, condition, documents and timing — even when it isn’t what they hoped to hear.',
+    text: 'The truth about price, condition and documents.',
   },
   {
     title: 'Careful checks',
-    text: 'Property in Abuja carries real risk when details are skipped. We look at titles, approvals and the property itself before recommending anything.',
+    text: 'Titles, approvals and the property itself — checked first.',
   },
   {
     title: 'Clear communication',
-    text: 'Costs are itemised in writing, questions are answered promptly, and clients abroad get updates they can act on without having to chase us.',
+    text: 'Costs in writing, prompt answers, regular updates.',
   },
 ]
 
 const clients = [
-  { title: 'Buyers', text: 'Families and individuals looking for a home to own.' },
-  { title: 'Tenants', text: 'People and companies looking to rent homes or offices.' },
-  { title: 'Landlords & owners', text: 'Owners who want good tenants and a well-kept property.' },
-  { title: 'Investors', text: 'Clients building or managing a property portfolio.' },
-  { title: 'Clients abroad', text: 'Nigerians in the diaspora buying or holding property at home.' },
-  { title: 'Organisations', text: 'Companies and institutions sourcing staff housing or workspace.' },
+  { title: 'Buyers', text: 'Homes to own.' },
+  { title: 'Tenants', text: 'Homes and offices to rent.' },
+  { title: 'Landlords & owners', text: 'Good tenants, well-kept property.' },
+  { title: 'Investors', text: 'Building a portfolio.' },
+  { title: 'Clients abroad', text: 'Property at home, managed from anywhere.' },
+  { title: 'Organisations', text: 'Staff housing and workspace.' },
 ]
 
 export default function About() {
@@ -38,7 +38,7 @@ export default function About() {
       <PageHero
         eyebrow="About Giwagate"
         title="A straightforward property company in Abuja."
-        lead="Giwagate Properties is a real estate agency and property management company based in Abuja. We help people buy, rent, let and look after property across the Federal Capital Territory."
+        lead="Real estate agency and property management across the FCT."
         image={images.openPlanStair}
       />
 
@@ -47,11 +47,7 @@ export default function About() {
           <SectionHeading id="story-title" eyebrow="Our story" title="Who we are." />
           <Reveal className="placeholder-panel" delay={100}>
             <h3>Company story — to be provided</h3>
-            <p>
-              This section is reserved for Giwagate’s own account: when and why the company was founded, who leads
-              it, and the kind of work the team does most. It has been left blank deliberately rather than filled with
-              invented history.
-            </p>
+            <p>A few lines on when Giwagate was founded, who leads it and the work it does most.</p>
           </Reveal>
         </div>
       </section>
@@ -82,7 +78,7 @@ export default function About() {
           <SectionHeading
             id="clients-title"
             eyebrow="Who we work with"
-            title="Clients with different needs, one standard of service."
+            title="Who we work with."
           />
           <ul role="list" className="client-list">
             {clients.map((client, index) => (
@@ -101,14 +97,11 @@ export default function About() {
           <div className="about-placeholders">
             <Reveal className="placeholder-panel">
               <h3>Team profiles — to be provided</h3>
-              <p>Names, roles, short biographies and professional photographs of the people clients will deal with.</p>
+              <p>Photos, names and roles of the team.</p>
             </Reveal>
             <Reveal className="placeholder-panel" delay={100}>
               <h3>Registrations & memberships — to be provided</h3>
-              <p>
-                For example, CAC registration and any professional bodies the company or its staff belong to. Only
-                credentials Giwagate actually holds should be listed here.
-              </p>
+              <p>CAC registration and professional memberships actually held.</p>
             </Reveal>
           </div>
         </div>

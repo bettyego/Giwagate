@@ -1,0 +1,93 @@
+.lightbox {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgb(14 17 22 / 0.96);
+  color: var(--on-dark);
+}
+
+.lightbox[open] {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.lightbox::backdrop {
+  background: rgb(14 17 22 / 0.8);
+}
+
+.lightbox__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem var(--gutter);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.08em;
+}
+
+.lightbox__close,
+.lightbox__nav {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--line-on-dark);
+  background: rgb(14 17 22 / 0.5);
+  color: var(--on-dark);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.lightbox__close:hover,
+.lightbox__nav:hover {
+  background: rgb(243 237 226 / 0.14);
+}
+
+.lightbox__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  margin: 0;
+  padding: 0 var(--gutter) var(--gutter);
+}
+
+.lightbox__stage img {
+  max-width: 100%;
+  /* Viewport height minus the top bar and bottom gutter. */
+  max-height: calc(100svh - 4.5rem - var(--gutter));
+  object-fit: contain;
+  animation: lightbox-in 280ms var(--ease-out);
+}
+
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  font-size: 2rem;
+  transform: translateY(-50%);
+}
+
+.lightbox__nav--prev {
+  left: 0.75rem;
+}
+
+.lightbox__nav--next {
+  right: 0.75rem;
+}
+
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox__stage img {
+    animation: none;
+  }
+}

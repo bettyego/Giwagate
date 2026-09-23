@@ -79,7 +79,6 @@ export default function Footer() {
           <p>
             © {year} {site.name}. All rights reserved.
           </p>
-          <p>Photography marked “Illustrative image” is stock imagery and does not show Giwagate listings.</p>
         </div>
       </div>
     </footer>

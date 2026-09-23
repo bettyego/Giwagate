@@ -6,8 +6,8 @@
   line-height: 1.7;
 }
 
-.site-footer .logo {
-  color: var(--on-dark);
+.site-footer .logo__img {
+  height: 3.75rem;
 }
 
 .site-footer__grid {

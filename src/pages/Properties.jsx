@@ -50,7 +50,7 @@ export default function Properties() {
       <PageHero
         eyebrow="Properties"
         title="Homes and spaces across Abuja."
-        lead="Browse properties for sale and to let. If you can’t see what you need, tell us — much of what we handle never reaches a public listing."
+        lead="For sale and to let. Can’t see what you need? Ask us."
       />
 
       <section className="section listings" aria-labelledby="results-title">
@@ -146,7 +146,7 @@ export default function Properties() {
 
       <CtaBand
         title="Own a property in Abuja?"
-        text="If you’re thinking of selling or letting, or want someone reliable to manage it, we’d be glad to talk it through."
+        text="Selling, letting or need it managed? Let’s talk."
       />
     </>
   )

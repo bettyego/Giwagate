@@ -135,3 +135,16 @@
     gap: 3.5rem 2.5rem;
   }
 }
+
+.property-card__media-count {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.3rem 0.625rem;
+  background: rgb(22 27 34 / 0.68);
+  color: var(--on-dark);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+}

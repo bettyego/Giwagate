@@ -1,26 +1,29 @@
 .logo {
-  display: inline-grid;
-  gap: 0.2rem;
-  line-height: 1;
+  display: inline-flex;
+  line-height: 0;
 }
 
-.logo__name {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+.logo__img {
+  width: auto;
+  height: 2.75rem;
 }
 
-.logo__sub {
-  color: var(--bronze-deep);
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.52em;
-  text-transform: uppercase;
+@media (min-width: 64em) {
+  .logo__img {
+    height: 3.25rem;
+  }
 }
 
-.on-dark .logo__sub,
-.is-overlay .logo__sub {
-  color: var(--bronze-light);
+.logo__img--light {
+  display: none;
+}
+
+.on-dark .logo__img--dark,
+.is-overlay .logo__img--dark {
+  display: none;
+}
+
+.on-dark .logo__img--light,
+.is-overlay .logo__img--light {
+  display: block;
 }

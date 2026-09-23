@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import { images } from '../content/images.js'
 import { services } from '../content/services.js'
-import { featuredProperties } from '../content/properties.js'
+import { featuredProperties, properties } from '../content/properties.js'
 import { districts } from '../content/abuja.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import PropertyCard from '../components/PropertyCard.jsx'
@@ -13,23 +13,20 @@ import CtaBand from '../components/CtaBand.jsx'
 import './Home.css'
 
 const steps = [
-  {
-    title: 'A proper conversation',
-    text: 'We start with what you need — budget, timing, location, and just as importantly, what would make a property wrong for you.',
-  },
-  {
-    title: 'A considered shortlist',
-    text: 'We narrow the options before you spend time on them, then arrange inspections in person or by video walk-through.',
-  },
-  {
-    title: 'Checks before commitment',
-    text: 'Before any money changes hands, title documents are reviewed and we recommend an independent search at AGIS through your lawyer.',
-  },
-  {
-    title: 'Handover, and after',
-    text: 'Terms are agreed in writing and keys change hands when everything is in order. Owners can ask us to stay on as managers.',
-  },
+  { title: 'Talk', text: 'Tell us your budget, timing and area.' },
+  { title: 'Shortlist', text: 'We narrow the options and arrange viewings — in person or on video.' },
+  { title: 'Check', text: 'Title documents reviewed before any money changes hands.' },
+  { title: 'Move in', text: 'Terms in writing, keys handed over. We can manage it after.' },
 ]
+
+// Photos drawn from the listings, so real photos appear here as soon as they're added.
+// Interior shots (not the covers already shown on cards) come first, and no photo repeats.
+const mosaic = [
+  ...properties.flatMap((property) => property.images.slice(1).map((image) => ({ property, image }))),
+  ...properties.map((property) => ({ property, image: property.images[0] })),
+]
+  .filter(({ image }, index, all) => all.findIndex((item) => item.image.src === image.src) === index)
+  .slice(0, 5)
 
 export default function Home() {
   usePageTitle()
@@ -52,10 +49,7 @@ export default function Home() {
           <h1 id="hero-title" className="hero__title hero__rise">
             Property in Abuja, <em>handled properly.</em>
           </h1>
-          <p className="hero__lead lead hero__rise">
-            Giwagate Properties helps people buy, rent, let and manage property across the Federal Capital Territory —
-            with honest advice, careful checks and someone who picks up when you call.
-          </p>
+          <p className="hero__lead lead hero__rise">Buy, rent, let and manage property across the FCT.</p>
           <div className="hero__actions hero__rise">
             <Link to="/properties" className="btn btn--light">
               View properties
@@ -71,68 +65,7 @@ export default function Home() {
               <li key={service.id}>{service.title}</li>
             ))}
           </ul>
-          <p className="hero__note">Illustrative image</p>
-        </div>
-      </section>
-
-      <section className="section intro" aria-labelledby="intro-title">
-        <div className="container intro__grid">
-          <Reveal className="intro__label">
-            <p className="eyebrow" id="intro-title">
-              About Giwagate
-            </p>
-          </Reveal>
-          <div className="intro__body">
-            <Reveal as="p" className="intro__statement">
-              A family home in Maitama, office space in the Central Business District, or a reliable tenant for a
-              property you own — the work is the same: understand what you need, check everything properly, and see it
-              through.
-            </Reveal>
-            <Reveal className="intro__detail" delay={100}>
-              <p>
-                Giwagate Properties is a real estate agency and property management company based in Abuja. We work
-                with buyers, tenants, landlords and investors, whether they live in Abuja or look after their property
-                from elsewhere in Nigeria or abroad.
-              </p>
-              <Link to="/about" className="link-arrow">
-                More about us <Arrow />
-              </Link>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <section className="section section--ivory" aria-labelledby="services-title">
-        <div className="container">
-          <div className="split-heading">
-            <SectionHeading
-              id="services-title"
-              eyebrow="What we do"
-              title="Four services, one point of contact."
-            />
-            <Reveal className="split-heading__aside" delay={100}>
-              <Link to="/services" className="link-arrow">
-                All services <Arrow />
-              </Link>
-            </Reveal>
-          </div>
-
-          <ol role="list" className="service-rows">
-            {services.map((service, index) => (
-              <Reveal as="li" key={service.id} delay={index * 60}>
-                <Link to={`/services#${service.id}`} className="service-row">
-                  <span className="service-row__number" aria-hidden="true">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <span className="service-row__title">{service.title}</span>
-                  <span className="service-row__summary">{service.summary}</span>
-                  <span className="service-row__arrow" aria-hidden="true">
-                    <Arrow />
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </ol>
+          {images.hero.stock && <p className="hero__note">Illustrative image</p>}
         </div>
       </section>
 
@@ -143,7 +76,7 @@ export default function Home() {
               id="featured-title"
               eyebrow="Properties"
               title="Selected homes and spaces."
-              intro="Listings are being prepared. The properties shown here are samples that demonstrate how listings will appear."
+              intro={featuredProperties.some((p) => p.sample) ? 'Sample listings shown while real ones are prepared.' : undefined}
             />
             <Reveal className="split-heading__aside" delay={100}>
               <Link to="/properties" className="link-arrow">
@@ -162,14 +95,64 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section section--ivory" aria-labelledby="services-title">
+        <div className="container">
+          <div className="split-heading">
+            <SectionHeading id="services-title" eyebrow="What we do" title="Four services, one point of contact." />
+            <Reveal className="split-heading__aside" delay={100}>
+              <Link to="/services" className="link-arrow">
+                All services <Arrow />
+              </Link>
+            </Reveal>
+          </div>
+
+          <ol role="list" className="service-cards">
+            {services.map((service, index) => (
+              <Reveal as="li" key={service.id} delay={index * 60}>
+                <Link to={`/services#${service.id}`} className="service-card">
+                  <Photo image={service.image} sizes="(min-width: 64em) 25vw, (min-width: 40em) 50vw, 100vw" reveal={false} />
+                  <span className="service-card__number" aria-hidden="true">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <span className="service-card__title">
+                    {service.title} <Arrow />
+                  </span>
+                  <span className="service-card__summary">{service.summary}</span>
+                </Link>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="section mosaic-section" aria-labelledby="mosaic-title">
+        <div className="container">
+          <div className="split-heading">
+            <SectionHeading id="mosaic-title" eyebrow="A closer look" title="Inside the properties." />
+            <Reveal className="split-heading__aside" delay={100}>
+              <Link to="/properties" className="link-arrow">
+                Browse listings <Arrow />
+              </Link>
+            </Reveal>
+          </div>
+          <ul role="list" className="mosaic">
+            {mosaic.map(({ property, image }) => (
+              <li key={image.src} className="mosaic__item">
+                <Link to={`/properties/${property.slug}`} aria-label={`${property.title}, ${property.area}`}>
+                  <Photo image={image} sizes="(min-width: 64em) 40vw, 50vw" />
+                  <span className="mosaic__caption" aria-hidden="true">
+                    {property.area}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="section section--dark process" aria-labelledby="process-title">
         <div className="container">
-          <SectionHeading
-            id="process-title"
-            eyebrow="How we work"
-            title="From first conversation to handover."
-            intro="Most property problems in Abuja start with something that wasn’t checked. Our process is built to avoid that."
-          />
+          <SectionHeading id="process-title" eyebrow="How we work" title="From first call to handover." />
           <ol role="list" className="process__steps">
             {steps.map((step, index) => (
               <Reveal as="li" key={step.title} className="process__step" delay={index * 80}>
@@ -187,21 +170,12 @@ export default function Home() {
       <section className="section feature" aria-labelledby="diaspora-title">
         <div className="container feature__grid">
           <div className="feature__media">
-            <Photo image={images.livingWarm} sizes="(min-width: 64em) 55vw, 100vw" />
+            <Photo image={images.courtyardHouse} sizes="(min-width: 64em) 55vw, 100vw" />
           </div>
           <Reveal className="feature__copy">
             <p className="eyebrow">Clients outside Abuja</p>
-            <h2 id="diaspora-title">Buying or managing from a distance.</h2>
-            <p className="lead">
-              Distance should not mean guesswork. For clients in Lagos, abroad or simply too busy to attend every
-              viewing, we can inspect on your behalf, walk you through properties on video, and report back in writing at
-              every stage.
-            </p>
-            <ul role="list" className="checklist">
-              <li>Video walk-throughs and inspections on your behalf</li>
-              <li>Coordination of searches and legal checks with your lawyer</li>
-              <li>Ongoing management with regular written statements</li>
-            </ul>
+            <h2 id="diaspora-title">Buying from a distance.</h2>
+            <p className="lead">Video tours, inspections on your behalf and written updates at every step.</p>
             <Link to="/services#advisory" className="link-arrow">
               Investor &amp; diaspora advisory <Arrow />
             </Link>
@@ -211,17 +185,11 @@ export default function Home() {
 
       <section className="section section--ivory" aria-labelledby="areas-title">
         <div className="container">
-          <SectionHeading
-            id="areas-title"
-            eyebrow="Across the FCT"
-            title="Abuja, district by district."
-            intro="Every part of the city has its own character, prices and practicalities. A brief guide to some of the areas people ask about most."
-          />
+          <SectionHeading id="areas-title" eyebrow="Across the FCT" title="Where we work." />
           <ul role="list" className="districts">
             {districts.map((district, index) => (
-              <Reveal as="li" key={district.name} className="district" delay={(index % 4) * 60}>
-                <h3 className="district__name">{district.name}</h3>
-                <p>{district.note}</p>
+              <Reveal as="li" key={district.name} className="district" delay={(index % 4) * 60} title={district.note}>
+                {district.name}
               </Reveal>
             ))}
           </ul>
