@@ -37,7 +37,7 @@
 }
 
 .cta-band__details dt {
-  color: var(--bronze-light);
+  color: var(--gold-light);
   font-size: var(--fs-xs);
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -64,4 +64,10 @@
     grid-template-columns: 1.4fr 1fr;
     gap: 6rem;
   }
+}
+
+.cta-band__details dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
 }

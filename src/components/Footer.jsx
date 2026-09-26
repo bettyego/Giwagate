@@ -1,7 +1,6 @@
 import { Link } from 'react-router'
 import { navigation, site, contactLinks } from '../content/site.js'
 import { services } from '../content/services.js'
-import { ContactValue, Pending } from './Pending.jsx'
 import Logo from './Logo.jsx'
 import './Footer.css'
 
@@ -17,10 +16,11 @@ export default function Footer() {
             <Link to="/" aria-label={`${site.name} — home`}>
               <Logo />
             </Link>
-            <p>
-              Real estate agency and property management in Abuja — helping clients buy, rent, let and look after
-              property across the FCT.
-            </p>
+            <p className="site-footer__promise">{site.promise}</p>
+            <p>{site.philosophy}</p>
+            <Link to="/list-property" className="btn btn--primary site-footer__cta">
+              List your property
+            </Link>
           </div>
 
           <nav className="site-footer__col" aria-label="Footer">
@@ -34,6 +34,9 @@ export default function Footer() {
                   <Link to={item.to}>{item.label}</Link>
                 </li>
               ))}
+              <li>
+                <Link to="/property-management">Property Management</Link>
+              </li>
             </ul>
           </nav>
 
@@ -51,15 +54,30 @@ export default function Footer() {
           <div className="site-footer__col">
             <h2 className="site-footer__title">Contact</h2>
             <address>
+              <p className="site-footer__company">{site.name}</p>
               <p>
-                {contact.address ? contact.address.map((line) => <span key={line}>{line}<br /></span>) : <Pending label="Office address" />}
+                {contact.address.map((line) => (
+                  <span key={line}>
+                    {line}
+                    <br />
+                  </span>
+                ))}
+                <span className="site-footer__landmarks">{contact.landmarks}</span>
               </p>
-              <p>
-                <ContactValue value={contact.phone} href={contactLinks.phone} label="Phone number" />
-              </p>
-              <p>
-                <ContactValue value={contact.email} href={contactLinks.email} label="Email address" />
-              </p>
+              {contactLinks.phones.map((phone) => (
+                <p key={phone.tel}>
+                  <a className="text-link" href={phone.href}>
+                    {phone.display}
+                  </a>
+                </p>
+              ))}
+              {contactLinks.email && (
+                <p>
+                  <a className="text-link" href={contactLinks.email}>
+                    {contact.email}
+                  </a>
+                </p>
+              )}
             </address>
             {site.social.length > 0 && (
               <ul role="list" className="site-footer__social">
@@ -79,6 +97,7 @@ export default function Footer() {
           <p>
             © {year} {site.name}. All rights reserved.
           </p>
+          <p>{site.promise}</p>
         </div>
       </div>
     </footer>

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router'
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
-import WhatsAppButton from './WhatsAppButton.jsx'
+import FloatingContact from './FloatingContact.jsx'
 
 /** Scrolls to the top (or to a #hash) and moves focus to <main> on navigation. */
 function useRouteFocus(mainRef) {
@@ -38,7 +38,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
-      <WhatsAppButton />
+      <FloatingContact />
     </>
   )
 }

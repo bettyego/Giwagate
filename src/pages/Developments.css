@@ -1,0 +1,68 @@
+.capability {
+  gap: 1rem;
+}
+
+.capability .info-card__number {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.capability .checklist li {
+  font-size: var(--fs-sm);
+}
+
+.capability__focus {
+  color: var(--gold-deep);
+  font-weight: 600;
+}
+
+.capability__link {
+  justify-self: start;
+  margin-top: 0.75rem;
+}
+
+/* Landowners */
+.landowners__grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.landowners__media .photo {
+  aspect-ratio: 4 / 3;
+}
+
+.landowners__copy {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+  max-width: 38rem;
+}
+
+.landowners__copy .eyebrow {
+  margin-bottom: 0;
+}
+
+.landowners__statement {
+  color: var(--gold-light);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.landowners__copy .btn {
+  margin-top: 0.75rem;
+  white-space: normal;
+}
+
+@media (min-width: 64em) {
+  .landowners__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+  }
+
+  .landowners__media .photo {
+    aspect-ratio: 5 / 6;
+  }
+}

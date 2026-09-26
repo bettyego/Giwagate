@@ -1,28 +1,53 @@
+/* Inner-page hero: deep navy, continuing the header, with an optional photo
+   that straddles the navy and the page below. */
 .page-hero {
   padding-top: clamp(3rem, 2rem + 5vw, 6.5rem);
+  background: var(--ink);
+  color: var(--on-dark-muted);
+}
+
+.page-hero--media {
+  background: linear-gradient(var(--ink) 0 calc(100% - clamp(4rem, 10vw, 9rem)), var(--paper) 0);
+}
+
+.page-hero :is(h1, h2) {
+  color: var(--on-dark);
+}
+
+.page-hero .eyebrow {
+  color: var(--gold-light);
+}
+
+.page-hero .lead {
+  color: rgb(246 243 238 / 0.82);
 }
 
 .page-hero__text {
   display: grid;
   gap: 1.5rem;
-  padding-bottom: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+  padding-bottom: clamp(3rem, 2rem + 3vw, 5rem);
 }
 
 .page-hero h1 {
-  max-width: 16ch;
+  max-width: 18ch;
 }
 
 .page-hero__lead {
-  max-width: 36rem;
+  display: grid;
+  gap: 1.75rem;
+  justify-items: start;
+  max-width: 38rem;
 }
 
 .page-hero__media .photo {
   aspect-ratio: 4 / 3;
+  outline: 1px solid rgb(183 133 69 / 0.4);
+  outline-offset: 10px;
 }
 
 @media (min-width: 48em) {
   .page-hero__media .photo {
-    aspect-ratio: 21 / 9;
+    aspect-ratio: 21 / 8;
   }
 }
 

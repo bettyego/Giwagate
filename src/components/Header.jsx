@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router'
 import { navigation, site, contactLinks } from '../content/site.js'
-import { ContactValue } from './Pending.jsx'
 import Logo from './Logo.jsx'
 import './Header.css'
 
@@ -41,7 +40,7 @@ export default function Header() {
       }
     }
     const onResize = () => {
-      if (window.matchMedia('(min-width: 64em)').matches) setOpen(false)
+      if (window.matchMedia('(min-width: 80em)').matches) setOpen(false)
     }
     document.addEventListener('keydown', onKeyDown)
     window.addEventListener('resize', onResize)
@@ -53,10 +52,9 @@ export default function Header() {
   }, [open])
 
   const solid = !overlayRoute || scrolled || open
-  const primaryNav = navigation.filter((item) => item.to !== '/contact')
 
   return (
-    <header className={`site-header ${solid ? 'is-solid' : 'is-overlay'} ${open ? 'is-menu-open' : ''}`}>
+    <header className={`site-header on-dark ${solid ? 'is-solid' : 'is-overlay'} ${open ? 'is-menu-open' : ''}`}>
       <div className="container site-header__inner">
         <Link to="/" className="site-header__brand" aria-label={`${site.name} — home`}>
           <Logo />
@@ -64,7 +62,7 @@ export default function Header() {
 
         <nav className="site-nav" aria-label="Main">
           <ul role="list">
-            {primaryNav.map((item) => (
+            {navigation.map((item) => (
               <li key={item.to}>
                 <NavLink to={item.to}>{item.label}</NavLink>
               </li>
@@ -72,8 +70,8 @@ export default function Header() {
           </ul>
         </nav>
 
-        <Link to="/contact" className={`btn ${solid ? 'btn--primary' : 'btn--ghost-light'} site-header__cta`}>
-          Contact us
+        <Link to="/list-property" className="btn btn--primary site-header__cta">
+          List your property
         </Link>
 
         <button
@@ -106,13 +104,24 @@ export default function Header() {
           </ul>
         </nav>
         <div className="container mobile-menu__contact">
+          <Link to="/list-property" className="btn btn--primary">
+            List your property
+          </Link>
           <p className="eyebrow">Speak with us</p>
-          <p>
-            <ContactValue value={site.contact.phone} href={contactLinks.phone} label="Phone number" />
-          </p>
-          <p>
-            <ContactValue value={site.contact.email} href={contactLinks.email} label="Email address" />
-          </p>
+          {contactLinks.phones.map((phone) => (
+            <p key={phone.tel}>
+              <a className="text-link" href={phone.href}>
+                {phone.display}
+              </a>
+            </p>
+          ))}
+          {contactLinks.email && (
+            <p>
+              <a className="text-link" href={contactLinks.email}>
+                {site.contact.email}
+              </a>
+            </p>
+          )}
         </div>
       </div>
     </header>

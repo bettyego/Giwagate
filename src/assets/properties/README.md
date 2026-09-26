@@ -15,7 +15,6 @@ src/assets/properties/
 - **Photos** (`.jpg`, `.png`, `.webp`) show up on the site automatically, in
   filename order. The first one is the cover photo on listing cards, so number
   your files `01-…`, `02-…` and so on.
-- Once a folder has photos, they replace the stock images for that listing.
 - **Videos** (`.mp4`, `.webm`): keep them short, ideally under 50 MB. GitHub
   rejects files over 100 MB. For longer tours, upload to YouTube and paste the
   link into the listing's `video` field in `properties.js`.

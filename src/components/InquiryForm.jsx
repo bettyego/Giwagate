@@ -1,9 +1,7 @@
 import { useId, useRef, useState } from 'react'
-import { site } from '../content/site.js'
 import { interests } from '../content/enquiry.js'
+import { deliverForm, EMAIL_PATTERN } from './formDelivery.js'
 import './InquiryForm.css'
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function validate(values) {
   const errors = {}
@@ -20,24 +18,7 @@ function validate(values) {
   return errors
 }
 
-function buildMailto(values, subject) {
-  const body = [
-    values.message,
-    '',
-    `Name: ${values.name}`,
-    ...(values.email.trim() ? [`Email: ${values.email}`] : []),
-    ...(values.phone.trim() ? [`Phone: ${values.phone}`] : []),
-  ].join('\n')
-  return `mailto:${site.contact.email}?subject=${encodeURIComponent(`Enquiry: ${subject}`)}&body=${encodeURIComponent(body)}`
-}
-
-/**
- * Enquiry form. Delivery depends on configuration in content/site.js:
- *   1. forms.endpoint set  → JSON POST to that endpoint
- *   2. contact.email set   → opens the visitor's email app, pre-filled
- *   3. neither             → explains that online enquiries aren't active yet
- * The form never claims a message was sent unless the endpoint confirms it.
- */
+/** Enquiry form. See formDelivery.js for how it is sent. */
 export default function InquiryForm({ defaultInterest = interests[0], defaultMessage = '', subject }) {
   const uid = useId()
   const formRef = useRef(null)
@@ -75,30 +56,19 @@ export default function InquiryForm({ defaultInterest = interests[0], defaultMes
       return
     }
 
-    if (site.forms.endpoint) {
-      setStatus('sending')
-      try {
-        const response = await fetch(site.forms.endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ ...values, subject: subject ?? values.interest }),
-        })
-        if (!response.ok) throw new Error(`Request failed with ${response.status}`)
-        setStatus('sent')
-        setValues((current) => ({ ...current, message: '' }))
-      } catch {
-        setStatus('error')
-      }
-      return
-    }
-
-    if (site.contact.email) {
-      window.location.href = buildMailto(values, subject ?? values.interest)
-      setStatus('handoff')
-      return
-    }
-
-    setStatus('unconfigured')
+    setStatus('sending')
+    const result = await deliverForm({
+      subject: `Enquiry: ${subject ?? values.interest}`,
+      fields: [
+        ['I want to', values.interest],
+        ['Message', values.message],
+        ['Name', values.name],
+        ['Email', values.email],
+        ['Phone', values.phone],
+      ],
+    })
+    setStatus(result)
+    if (result === 'sent') setValues((current) => ({ ...current, message: '' }))
   }
 
   const fieldProps = (name) => ({
@@ -145,7 +115,7 @@ export default function InquiryForm({ defaultInterest = interests[0], defaultMes
         </div>
 
         <div className="field inquiry-form__full">
-          <label htmlFor={id('interest')}>I’m interested in</label>
+          <label htmlFor={id('interest')}>I want to</label>
           <select className="input" {...fieldProps('interest')}>
             {interests.map((option) => (
               <option key={option}>{option}</option>
@@ -158,7 +128,7 @@ export default function InquiryForm({ defaultInterest = interests[0], defaultMes
           <textarea
             className="input"
             rows={5}
-            placeholder="Tell us what you’re looking for — area, budget, timing, or anything else that matters."
+            placeholder="Tell us a little more — location, budget, timing, or anything else that matters."
             {...fieldProps('message')}
           />
           {fieldError('message')}
@@ -191,7 +161,7 @@ export default function InquiryForm({ defaultInterest = interests[0], defaultMes
         {status === 'unconfigured' && (
           <p className="inquiry-form__message is-error">
             Online enquiries are not switched on yet, so this message has <strong>not</strong> been sent. Please
-            contact Giwagate Properties directly by phone or email for now.
+            contact us directly by phone or email.
           </p>
         )}
       </div>

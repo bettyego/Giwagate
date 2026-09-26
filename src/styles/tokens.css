@@ -1,20 +1,21 @@
 :root {
-  /* Colour — ink, warm paper and a single bronze accent */
-  --ink: #161b22;
-  --ink-2: #1e252e;
-  --ink-soft: #39414c;
-  --muted: #5c636e;
-  --paper: #fbf8f2;
-  --ivory: #f3ede2;
-  --stone: #e7e0d3;
-  --line: #ddd4c4;
-  --line-strong: #c3b7a1;
-  --bronze: #9c7443;
-  --bronze-deep: #7a5a31;
-  --bronze-light: #c9a778;
-  --on-dark: #f3ede2;
-  --on-dark-muted: #aca598;
-  --line-on-dark: rgb(243 237 226 / 0.16);
+  /* Colour — taken from the Giwagate logo: deep navy, near-black, metallic gold, off-white */
+  --ink: #082032; /* logo navy: headings and dark sections */
+  --ink-2: #0c2a41;
+  --ink-deep: #050f1a; /* near-black: hero, footer */
+  --ink-soft: #2e3d4d;
+  --muted: #5a6573;
+  --paper: #faf8f4;
+  --ivory: #f2eee6;
+  --stone: #e4ded2;
+  --line: #e0d9cc;
+  --line-strong: #c9bda6;
+  --gold: #b78545; /* logo gold */
+  --gold-deep: #8a6230; /* gold text on light backgrounds */
+  --gold-light: #d8b47a; /* gold on dark backgrounds */
+  --on-dark: #f6f3ee;
+  --on-dark-muted: #a9b3bf;
+  --line-on-dark: rgb(246 243 238 / 0.14);
   --danger: #a3372b;
   --success: #3d6a4c;
 

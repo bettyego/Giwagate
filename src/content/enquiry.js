@@ -1,9 +1,28 @@
-/** Options for the "I'm interested in" field of the enquiry form. */
+/** Options for the "I want to" field of the enquiry form. */
 export const interests = [
-  'Buying a property',
-  'Renting a property',
-  'Selling or letting my property',
-  'Property management',
-  'Investment or diaspora advice',
-  'Something else',
+  'Buy Property',
+  'Sell Property',
+  'Buy Land',
+  'Invest',
+  'Develop/Build',
+  'Renovate',
+  'Request Property Management',
+  'Request Valuation',
+  'Discuss Partnership',
+  'Other',
 ]
+
+/** Options for the property submission form. */
+export const propertyTypes = ['Land', 'Residential', 'Commercial', 'Mixed-use', 'Other']
+
+export const titleDocuments = [
+  'Certificate of Occupancy (C of O)',
+  'Right of Occupancy (R of O)',
+  'Minister’s / Governor’s Consent',
+  'Deed of Assignment',
+  'Allocation Letter',
+  'Other',
+  'Not sure',
+]
+
+export const contactMethods = ['Phone call', 'WhatsApp', 'Email']

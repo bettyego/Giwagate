@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   border: 0;
-  background: rgb(14 17 22 / 0.96);
+  background: rgb(5 15 26 / 0.96);
   color: var(--on-dark);
 }
 
@@ -16,7 +16,7 @@
 }
 
 .lightbox::backdrop {
-  background: rgb(14 17 22 / 0.8);
+  background: rgb(5 15 26 / 0.8);
 }
 
 .lightbox__bar {
@@ -35,7 +35,7 @@
   width: 3rem;
   height: 3rem;
   border: 1px solid var(--line-on-dark);
-  background: rgb(14 17 22 / 0.5);
+  background: rgb(5 15 26 / 0.5);
   color: var(--on-dark);
   font-size: 1.25rem;
   line-height: 1;
@@ -45,7 +45,7 @@
 
 .lightbox__close:hover,
 .lightbox__nav:hover {
-  background: rgb(243 237 226 / 0.14);
+  background: rgb(246 243 238 / 0.14);
 }
 
 .lightbox__stage {

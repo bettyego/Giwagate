@@ -4,7 +4,7 @@ import './PageHero.css'
 
 export default function PageHero({ eyebrow, title, lead, image, children }) {
   return (
-    <section className="page-hero">
+    <section className={`page-hero on-dark ${image ? 'page-hero--media' : ''}`}>
       <div className="container">
         <div className="page-hero__text">
           <Reveal>

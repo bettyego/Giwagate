@@ -1,4 +1,6 @@
 import { images } from '../content/images.js'
+import { site } from '../content/site.js'
+import { about, values } from '../content/company.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import PageHero from '../components/PageHero.jsx'
 import SectionHeading from '../components/SectionHeading.jsx'
@@ -6,108 +8,87 @@ import Reveal from '../components/Reveal.jsx'
 import CtaBand from '../components/CtaBand.jsx'
 import './About.css'
 
-const principles = [
-  {
-    title: 'Honest advice',
-    text: 'The truth about price, condition and documents.',
-  },
-  {
-    title: 'Careful checks',
-    text: 'Titles, approvals and the property itself — checked first.',
-  },
-  {
-    title: 'Clear communication',
-    text: 'Costs in writing, prompt answers, regular updates.',
-  },
-]
-
-const clients = [
-  { title: 'Buyers', text: 'Homes to own.' },
-  { title: 'Tenants', text: 'Homes and offices to rent.' },
-  { title: 'Landlords & owners', text: 'Good tenants, well-kept property.' },
-  { title: 'Investors', text: 'Building a portfolio.' },
-  { title: 'Clients abroad', text: 'Property at home, managed from anywhere.' },
-  { title: 'Organisations', text: 'Staff housing and workspace.' },
-]
-
 export default function About() {
   usePageTitle('About')
+  const [opening, ...story] = about.story
 
   return (
     <>
       <PageHero
-        eyebrow="About Giwagate"
-        title="A straightforward property company in Abuja."
-        lead="Real estate agency and property management across the FCT."
+        eyebrow="About GIWAGATE"
+        title="Building Value. Creating Wealth. Building Futures."
+        lead={opening}
         image={images.openPlanStair}
       />
 
       <section className="section" aria-labelledby="story-title">
         <div className="container about-story">
-          <SectionHeading id="story-title" eyebrow="Our story" title="Who we are." />
-          <Reveal className="placeholder-panel" delay={100}>
-            <h3>Company story — to be provided</h3>
-            <p>A few lines on when Giwagate was founded, who leads it and the work it does most.</p>
+          <SectionHeading id="story-title" eyebrow="Our story" title="Real estate is about people, places and long-term value." />
+          <Reveal className="about-story__text" delay={100}>
+            {story.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </Reveal>
+        </div>
+        <div className="container">
+          <Reveal as="figure" className="philosophy">
+            <blockquote>
+              <p>{site.philosophy}</p>
+            </blockquote>
+            <figcaption>Our philosophy</figcaption>
           </Reveal>
         </div>
       </section>
 
-      <section className="section section--ivory" aria-labelledby="principles-title">
-        <div className="container">
-          <SectionHeading
-            id="principles-title"
-            eyebrow="How we work"
-            title="What clients can expect from us."
-          />
-          <ol role="list" className="principles">
-            {principles.map((item, index) => (
-              <Reveal as="li" key={item.title} className="principle" delay={index * 80}>
-                <span className="principle__number" aria-hidden="true">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </Reveal>
-            ))}
-          </ol>
+      <section className="section section--dark" aria-label="Vision and mission">
+        <div className="container vision-mission">
+          <Reveal className="vision-mission__item">
+            <p className="eyebrow">Our vision</p>
+            <p className="vision-mission__text">{about.vision}</p>
+          </Reveal>
+          <Reveal className="vision-mission__item" delay={100}>
+            <p className="eyebrow">Our mission</p>
+            <p className="vision-mission__text">{about.mission}</p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="section" aria-labelledby="clients-title">
-        <div className="container about-clients">
-          <SectionHeading
-            id="clients-title"
-            eyebrow="Who we work with"
-            title="Who we work with."
-          />
-          <ul role="list" className="client-list">
-            {clients.map((client, index) => (
-              <Reveal as="li" key={client.title} delay={(index % 3) * 60}>
-                <h3>{client.title}</h3>
-                <p>{client.text}</p>
+      <section className="section section--ivory" aria-labelledby="values-title">
+        <div className="container">
+          <div className="values-heading">
+            <SectionHeading id="values-title" eyebrow="Core values" title="The values behind our name." />
+            <p className="values-heading__word" aria-hidden="true">
+              {values.map((value, index) => (
+                <span key={index}>{value.letter}</span>
+              ))}
+            </p>
+          </div>
+          <ul role="list" className="values">
+            {values.map((value, index) => (
+              <Reveal as="li" key={value.title} className="value" delay={(index % 4) * 60}>
+                <span className="value__letter" aria-hidden="true">
+                  {value.letter}
+                </span>
+                <h3>{value.title}</h3>
+                <p>{value.text}</p>
               </Reveal>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className="section section--ivory" aria-labelledby="team-title">
-        <div className="container">
-          <SectionHeading id="team-title" eyebrow="People & credentials" title="The team behind Giwagate." />
-          <div className="about-placeholders">
-            <Reveal className="placeholder-panel">
-              <h3>Team profiles — to be provided</h3>
-              <p>Photos, names and roles of the team.</p>
-            </Reveal>
-            <Reveal className="placeholder-panel" delay={100}>
-              <h3>Registrations & memberships — to be provided</h3>
-              <p>CAC registration and professional memberships actually held.</p>
-            </Reveal>
-          </div>
+      <section className="section" aria-labelledby="what-title">
+        <div className="container about-story">
+          <SectionHeading id="what-title" eyebrow="What we do" title="From opportunity to completion." />
+          <Reveal className="about-story__text" delay={100}>
+            {about.description.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </Reveal>
         </div>
       </section>
 
-      <CtaBand title="Let’s talk about your property." />
+      <CtaBand />
     </>
   )
 }

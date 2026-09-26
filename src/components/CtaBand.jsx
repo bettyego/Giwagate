@@ -1,13 +1,13 @@
 import { Link } from 'react-router'
 import { site, contactLinks } from '../content/site.js'
-import { ContactValue } from './Pending.jsx'
 import Reveal from './Reveal.jsx'
 import Arrow from './Arrow.jsx'
 import './CtaBand.css'
 
 export default function CtaBand({
-  title = 'Tell us what you’re looking for.',
-  text = 'Buying, renting, letting or managing — a short conversation is the best start.',
+  title = 'Let’s Talk Property.',
+  text = 'Whether you’re looking to buy, sell, invest, build, renovate or professionally manage a property, we’d be pleased to understand what you need.',
+  action = { to: '/contact', label: 'Speak With Us Today' },
 }) {
   const { contact } = site
 
@@ -19,8 +19,8 @@ export default function CtaBand({
           <h2 id="cta-title">{title}</h2>
           <p className="lead">{text}</p>
           <div className="cta-band__actions">
-            <Link to="/contact" className="btn btn--light">
-              Make an enquiry <Arrow />
+            <Link to={action.to} className="btn btn--primary">
+              {action.label} <Arrow />
             </Link>
             {contactLinks.whatsapp && (
               <a href={contactLinks.whatsapp} className="btn btn--ghost-light" target="_blank" rel="noreferrer">
@@ -34,18 +34,26 @@ export default function CtaBand({
           <div>
             <dt>Phone</dt>
             <dd>
-              <ContactValue value={contact.phone} href={contactLinks.phone} label="Phone number" />
+              {contactLinks.phones.map((phone) => (
+                <a key={phone.tel} className="text-link" href={phone.href}>
+                  {phone.display}
+                </a>
+              ))}
             </dd>
           </div>
-          <div>
-            <dt>Email</dt>
-            <dd>
-              <ContactValue value={contact.email} href={contactLinks.email} label="Email address" />
-            </dd>
-          </div>
+          {contactLinks.email && (
+            <div>
+              <dt>Email</dt>
+              <dd>
+                <a className="text-link" href={contactLinks.email}>
+                  {contact.email}
+                </a>
+              </dd>
+            </div>
+          )}
           <div>
             <dt>Office</dt>
-            <dd>{contact.address ? contact.address.join(', ') : <ContactValue label="Office address" />}</dd>
+            <dd>{contact.address.join(', ')}</dd>
           </div>
         </Reveal>
       </div>

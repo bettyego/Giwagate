@@ -3,7 +3,7 @@
   inset: 0 0 auto;
   z-index: 50;
   height: var(--header-h);
-  color: var(--ink);
+  color: var(--on-dark);
   transition:
     background-color var(--dur) var(--ease-out),
     color var(--dur) var(--ease-out),
@@ -16,8 +16,8 @@
 }
 
 .site-header.is-solid {
-  background: var(--paper);
-  box-shadow: 0 1px 0 var(--line);
+  background: var(--ink-deep);
+  box-shadow: 0 1px 0 rgb(183 133 69 / 0.28);
 }
 
 .site-header__inner {
@@ -38,7 +38,7 @@
   display: none;
 }
 
-@media (min-width: 64em) {
+@media (min-width: 80em) {
   .site-nav {
     display: block;
     margin-left: auto;
@@ -46,7 +46,7 @@
 
   .site-nav ul {
     display: flex;
-    gap: 2.5rem;
+    gap: 1.75rem;
     margin: 0;
   }
 
@@ -70,6 +70,19 @@
     transform: scaleX(0);
     transform-origin: left;
     transition: transform var(--dur) var(--ease-out);
+  }
+
+  .site-nav a {
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .site-nav a::after {
+    background: var(--gold);
+  }
+
+  .site-nav a:hover,
+  .site-nav a[aria-current='page'] {
+    color: var(--gold-light);
   }
 
   .site-nav a:hover::after,
@@ -114,7 +127,7 @@
   transform: translateY(-4.25px) rotate(-45deg);
 }
 
-@media (min-width: 64em) {
+@media (min-width: 80em) {
   .menu-toggle {
     display: none;
   }
@@ -131,8 +144,8 @@
   padding-block: 1rem 2.5rem;
   overflow-y: auto;
   overscroll-behavior: contain;
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--ink-deep);
+  color: var(--on-dark);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-0.5rem);
@@ -150,7 +163,7 @@
 }
 
 .mobile-menu__nav li {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--line-on-dark);
 }
 
 .mobile-menu__nav a {
@@ -159,20 +172,20 @@
   justify-content: space-between;
   padding-block: 1rem;
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 500;
   line-height: 1.2;
 }
 
 .mobile-menu__nav a[aria-current='page'] {
-  color: var(--bronze-deep);
+  color: var(--gold-light);
 }
 
 .mobile-menu__nav a[aria-current='page']::after {
   content: '';
   width: 0.5rem;
   height: 0.5rem;
-  background: var(--bronze);
+  background: var(--gold);
 }
 
 .mobile-menu__contact {
@@ -182,10 +195,14 @@
 }
 
 .mobile-menu__contact .eyebrow {
-  margin-bottom: 0.5rem;
+  margin-block: 1.5rem 0.25rem;
 }
 
-@media (min-width: 64em) {
+.mobile-menu__contact .btn {
+  justify-self: start;
+}
+
+@media (min-width: 80em) {
   .mobile-menu {
     display: none;
   }

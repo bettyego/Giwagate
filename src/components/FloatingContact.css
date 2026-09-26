@@ -1,4 +1,4 @@
-.whatsapp-float {
+.floating-contact {
   position: fixed;
   right: max(1rem, env(safe-area-inset-right));
   bottom: max(1rem, env(safe-area-inset-bottom));
@@ -9,55 +9,71 @@
   min-height: 3.25rem;
   padding: 0 0.875rem;
   border-radius: 999px;
-  background: #1f8f4e;
-  color: #fff;
+  background: var(--gold);
+  color: var(--ink-deep);
   font-size: var(--fs-sm);
   font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 6px 20px rgb(22 27 34 / 0.22);
+  box-shadow: 0 6px 20px rgb(8 32 50 / 0.22);
   transition:
     transform var(--dur-fast) var(--ease-out),
     background-color var(--dur-fast) var(--ease-out);
 }
 
-.whatsapp-float:hover {
-  background: #197a42;
+.floating-contact:hover {
+  background: var(--gold-light);
   transform: translateY(-2px);
 }
 
-.whatsapp-float:focus-visible {
+.floating-contact:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
 }
 
-.whatsapp-float__label {
+.floating-contact--whatsapp {
+  background: #1f8f4e;
+  color: #fff;
+}
+
+.floating-contact--whatsapp:hover {
+  background: #197a42;
+}
+
+.floating-contact__label {
   display: none;
 }
 
+/* The call button is a phone shortcut; on desktop the numbers are in the contact band and footer. */
+@media (min-width: 64em) {
+  .floating-contact--call {
+    display: none;
+  }
+}
+
 @media (min-width: 40em) {
-  .whatsapp-float {
+  .floating-contact {
     padding: 0 1.125rem 0 0.875rem;
   }
 
-  .whatsapp-float__label {
+  .floating-contact__label {
     display: inline;
   }
 }
 
-html.menu-open .whatsapp-float {
+html.menu-open .floating-contact {
   display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .whatsapp-float,
-  .whatsapp-float:hover {
+  .floating-contact,
+  .floating-contact:hover {
     transition: none;
     transform: none;
   }
 }
 
 @media print {
-  .whatsapp-float {
+  .floating-contact {
     display: none;
   }
 }

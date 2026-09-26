@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { services } from '../content/services.js'
+import { services, corporate } from '../content/services.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import PageHero from '../components/PageHero.jsx'
 import Reveal from '../components/Reveal.jsx'
@@ -15,17 +15,20 @@ export default function Services() {
     <>
       <PageHero
         eyebrow="Services"
-        title="Everything a property needs."
-        lead="Buying, renting, letting and management — one team for all of it."
+        title="Integrated property solutions, from opportunity to completion."
+        lead="Acquisition, sales, development, construction, renovation, management, valuation and procurement — one company supporting you across the property lifecycle."
       >
         <nav aria-label="Services on this page" className="service-index">
-          <ul role="list">
-            {services.map((service) => (
+          <ol role="list">
+            {services.map((service, index) => (
               <li key={service.id}>
-                <a href={`#${service.id}`}>{service.title}</a>
+                <a href={`#${service.id}`}>
+                  <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                  {service.title}
+                </a>
               </li>
             ))}
-          </ul>
+          </ol>
         </nav>
       </PageHero>
 
@@ -42,25 +45,64 @@ export default function Services() {
             </div>
             <Reveal className="service-detail__copy">
               <p className="eyebrow">
-                {String(index + 1).padStart(2, '0')} — {service.audience}
+                {String(index + 1).padStart(2, '0')} — {service.title}
               </p>
-              <h2 id={`${service.id}-title`}>{service.title}</h2>
-              <p className="lead">{service.summary}</p>
-              <h3 className="service-detail__label">What’s included</h3>
-              <ul role="list" className="checklist">
-                {service.includes.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <Link to={`/contact?interest=${encodeURIComponent(service.enquiry)}`} className="link-arrow">
-                Enquire about {service.title.toLowerCase()} <Arrow />
+              <h2 id={`${service.id}-title`}>{service.heading}</h2>
+              {service.text.map((paragraph) => (
+                <p key={paragraph} className="lead">
+                  {paragraph}
+                </p>
+              ))}
+              {service.includes && (
+                <>
+                  <h3 className="service-detail__label">{service.listLabel}</h3>
+                  <ul role="list" className="checklist service-detail__list">
+                    {service.includes.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              {service.focus && (
+                <>
+                  <h3 className="service-detail__label">Focus</h3>
+                  <ul role="list" className="tag-list">
+                    {service.focus.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              {service.note && <p className="notice">{service.note}</p>}
+              <Link to={service.cta.to} className="btn btn--primary">
+                {service.cta.label} <Arrow />
               </Link>
             </Reveal>
           </div>
         </section>
       ))}
 
-      <CtaBand title="Not sure which service you need?" text="Tell us your situation and we’ll point you the right way." />
+      <section className="section section--deep corporate" aria-labelledby="corporate-title">
+        <div className="container corporate__grid">
+          <Reveal>
+            <p className="eyebrow">Corporate clients</p>
+            <h2 id="corporate-title">{corporate.heading}</h2>
+          </Reveal>
+          <Reveal className="corporate__body" delay={100}>
+            <p className="lead">{corporate.text}</p>
+            <ul role="list" className="tag-list">
+              {corporate.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <Link to={corporate.cta.to} className="btn btn--primary">
+              {corporate.cta.label} <Arrow />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      <CtaBand />
     </>
   )
 }
